@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng tiền thưởng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px);
+            z-index: 0;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+            padding: 60px;
+            max-width: 700px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(100, 149, 237, 0.3);
+            border-radius: 15px;
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top left, rgba(100, 149, 237, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            background: linear-gradient(135deg, #CBD5E1, #6495ED, #CBD5E1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 50px;
+            letter-spacing: 0.2rem;
+            text-shadow: 0 0 30px rgba(100, 149, 237, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        table, th, td {
+            border: 2px solid rgba(100, 149, 237, 0.5);
+        }
+
+        th {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            padding: 18px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.1rem;
+            border: 2px solid rgba(100, 149, 237, 0.6);
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            background: rgba(15, 23, 42, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        tr:hover td {
+            background: rgba(100, 149, 237, 0.15);
+        }
+
+        .loai-column {
+            text-align: left;
+            padding-left: 25px;
+            font-weight: bold;
+            color: #6495ED;
+        }
+
+        .amount-column {
+            text-align: right;
+            padding-right: 25px;
+            font-weight: 600;
+        }
+
+        .formula-section {
+            margin-top: 60px;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%);
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(100, 149, 237, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .formula-section h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.15rem;
+        }
+
+        .formula {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 1.5rem;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .formula:hover {
+            background: rgba(100, 149, 237, 0.1);
+            transform: scale(1.05);
+        }
+
+        .formula-item {
+            margin: 0 20px;
+            color: #6495ED;
+            font-weight: 600;
+        }
+
+        .subscript {
+            font-size: 1rem;
+            vertical-align: sub;
+            color: #CBD5E1;
+        }
+
+        .superscript {
+            font-size: 1rem;
+            vertical-align: super;
+            color: #CBD5E1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            th {
+                font-size: 1rem;
+                padding: 12px;
+            }
+
+            td {
+                font-size: 0.95rem;
+                padding: 10px;
+            }
+
+            .formula {
+                font-size: 1.2rem;
+            }
+
+            .formula-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BẢNG TIỀN THƯỞNG</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Loại</th>
+                    <th>Tiền thưởng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="loai-column">Giỏi</td>
+                    <td class="amount-column">300000</td>
+                </tr>
+                <tr>
+                    <td class="loai-column">Khá</td>
+                    <td class="amount-column">100000</td>
+                </tr>
+                <tr>
+                    <td class="loai-column">TB</td>
+                    <td class="amount-column">50000</td>
+                </tr>
+                <tr>
+                    <td class="loai-column">Yếu</td>
+                    <td class="amount-column">0</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="formula-section">
+            <h3>CÔNG THỨC</h3>
+            
+            <div class="formula">
+                <span class="formula-item">H<span class="subscript">2</span>O</span>
+            </div>
+            
+            <div class="formula">
+                <span class="formula-item">O<span class="superscript">o</span>C</span>
+                <span class="formula-item">H<span class="subscript">2</span>SO<span class="subscript">4</span></span>
+            </div>
+            
+            <div class="formula">
+                <span class="formula-item">(A+B)<span class="superscript">3</span></span>
+                <span class="formula-item">NH<span class="subscript">3</span>...</span>
+            </div>
+            
+            <div class="formula" style="margin-top: 30px;">
+                <span class="formula-item">A<span class="superscript">2</span> + B<span class="superscript">2</span></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

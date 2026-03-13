@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu đăng ký dự thi thể thao</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px);
+            z-index: 0;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+            padding: 50px;
+            border: 3px solid rgba(100, 149, 237, 0.5);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(100, 149, 237, 0.3);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-left p {
+            margin: 5px 0;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.05rem;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 0.95rem;
+        }
+
+        .header-right p {
+            margin: 5px 0;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.05rem;
+        }
+
+        .title {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #CBD5E1, #6495ED, #CBD5E1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+            letter-spacing: 0.15rem;
+            text-shadow: 0 0 30px rgba(100, 149, 237, 0.5);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-placeholder {
+            width: 180px;
+            height: 100px;
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #CBD5E1;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            font-family: 'Times New Roman', Times, serif;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(100, 149, 237, 0.1);
+        }
+
+        .form-section {
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .form-group label {
+            min-width: 120px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            background: rgba(15, 23, 42, 0.6);
+            color: #CBD5E1;
+            font-family: 'Times New Roman', Times, serif;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6495ED;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.4);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .form-group input::placeholder {
+            color: #64748B;
+        }
+
+        .sports-section {
+            margin: 35px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sports-section h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: 25px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(100, 149, 237, 0.1);
+            padding-left: 20px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            accent-color: #6495ED;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            font-size: 1.05rem;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            cursor: pointer;
+        }
+
+        .section-divider {
+            border-top: 2px solid rgba(100, 149, 237, 0.5);
+            margin: 50px 0;
+            padding-top: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.15rem;
+        }
+
+        .equipment-section h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+        }
+
+        .select-box {
+            width: 300px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            background: rgba(15, 23, 42, 0.6);
+            color: #CBD5E1;
+            font-family: 'Times New Roman', Times, serif;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .select-box:focus {
+            outline: none;
+            border-color: #6495ED;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.4);
+        }
+
+        .select-box option {
+            background: #1E293B;
+            color: #CBD5E1;
+            padding: 10px;
+        }
+
+        .warranty-section {
+            margin: 30px 0;
+        }
+
+        .warranty-section h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+        }
+
+        .warranty-select {
+            width: 250px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            background: rgba(15, 23, 42, 0.6);
+            color: #CBD5E1;
+            font-family: 'Times New Roman', Times, serif;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .warranty-select:focus {
+            outline: none;
+            border-color: #6495ED;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.4);
+        }
+
+        .warranty-select option {
+            background: #1E293B;
+            color: #CBD5E1;
+        }
+
+        .button-section {
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .button-section button {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0 20px;
+            cursor: pointer;
+            border: 2px solid rgba(100, 149, 237, 0.5);
+            background: linear-gradient(135deg, #1E293B, #334155);
+            color: #CBD5E1;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-section button:hover {
+            background: linear-gradient(135deg, #334155, #475569);
+            border-color: #6495ED;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(100, 149, 237, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header-right {
+                text-align: left;
+            }
+
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .button-section button {
+                margin: 10px;
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <p>Đăng ký thể thao</p>
+                <p>TRƯỜNG ĐẠI HỌC BẠC LIÊU</p>
+                <p>KHOA KỸ THUẬT VÀ CÔNG NGHỆ</p>
+            </div>
+            <div class="header-right">
+                <p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                <p>Độc lập - Tự do - Hạnh phúc</p>
+            </div>
+        </div>
+        
+        <div class="title">
+            <h1>PHIẾU ĐĂNG KÝ DỰ THI THỂ THAO</h1>
+        </div>
+        
+        <div class="logo-section">
+            <div class="logo-placeholder">
+                TRƯỜNG ĐẠI HỌC<br>BẠC LIÊU<br>UNIVERSITY
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-group">
+                <label>Họ tên:</label>
+                <input type="text" name="hoten" placeholder="Nhập họ tên">
+            </div>
+            
+            <div class="form-group">
+                <label>Mật khẩu:</label>
+                <input type="password" name="matkhau" placeholder="Nhập mật khẩu">
+            </div>
+        </div>
+        
+        <div class="sports-section">
+            <h3>Môn thể thao:</h3>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bongda" name="monthethao" value="bongda">
+                    <label for="bongda">Bóng đá</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bongchuyen" name="monthethao" value="bongchuyen">
+                    <label for="bongchuyen">Bóng chuyền</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="dienkinh" name="monthethao" value="dienkinh">
+                    <label for="dienkinh">Điền kinh</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="boiloi" name="monthethao" value="boiloi">
+                    <label for="boiloi">Bơi lội</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider">
+            <div class="section-title">PHẦN CUNG MÁY TÍNH</div>
+        </div>
+        
+        <div class="equipment-section">
+            <h3>Thiết bị:</h3>
+            <select class="select-box" size="4">
+                <option value="cpu">CPU</option>
+                <option value="mainboard">Mainboard</option>
+                <option value="asus">ASUS DVD</option>
+                <option value="ram">RAM KingMax</option>
+            </select>
+        </div>
+        
+        <div class="warranty-section">
+            <h3>Thời gian bảo hành:</h3>
+            <select class="warranty-select">
+                <option value="">-- Chọn --</option>
+                <option value="6">6 tháng</option>
+                <option value="12">12 tháng</option>
+                <option value="24">24 tháng</option>
+            </select>
+        </div>
+        
+        <div class="button-section">
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </div>
+    </div>
+</body>
+</html>

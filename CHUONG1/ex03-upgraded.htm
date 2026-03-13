@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông báo tuyển sinh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px);
+            z-index: 0;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+            padding: 60px;
+            border: 3px solid rgba(100, 149, 237, 0.5);
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(100, 149, 237, 0.3);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 48%, rgba(100, 149, 237, 0.1) 50%, transparent 52%);
+            background-size: 30px 30px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(100, 149, 237, 0.5);
+        }
+
+        .header-left h3 {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.1rem;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        .header-right p {
+            margin: 5px 0;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            letter-spacing: 0.05rem;
+        }
+
+        .title {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #CBD5E1, #6495ED, #CBD5E1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.2rem;
+            text-shadow: 0 0 30px rgba(100, 149, 237, 0.5);
+        }
+
+        .title .subtitle {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #94A3B8;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .content {
+            margin: 40px 0;
+            line-height: 2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content h4 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 20px 0 15px 0;
+            font-family: 'Times New Roman', Times, serif;
+            color: #CBD5E1;
+            padding-left: 20px;
+            border-left: 4px solid #6495ED;
+            transition: all 0.3s ease;
+        }
+
+        .content h4:hover {
+            padding-left: 30px;
+            border-left-width: 6px;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding-left: 50px;
+            margin: 15px 0;
+        }
+
+        .content ul li {
+            position: relative;
+            padding: 8px 0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            color: #CBD5E1;
+        }
+
+        .content ul li::before {
+            content: '▸';
+            position: absolute;
+            left: -25px;
+            color: #6495ED;
+            font-size: 1.2rem;
+        }
+
+        .content p {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            color: #CBD5E1;
+        }
+
+        .content strong {
+            color: #6495ED;
+        }
+
+        .footer {
+            margin-top: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.6) 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(100, 149, 237, 0.3);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-placeholder {
+            width: 180px;
+            height: 100px;
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #CBD5E1;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            font-family: 'Times New Roman', Times, serif;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), inset 0 0 30px rgba(100, 149, 237, 0.1);
+        }
+
+        .building-placeholder {
+            width: 140px;
+            height: 100px;
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #CBD5E1;
+            font-size: 0.9rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 2px solid rgba(100, 149, 237, 0.3);
+            font-family: 'Times New Roman', Times, serif;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .header-right {
+                text-align: left;
+            }
+
+            .title h1 {
+                font-size: 2rem;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h3>TRƯỜNG ĐẠI HỌC BẠC LIÊU</h3>
+                <h3>KHOA KỸ THUẬT VÀ CÔNG NGHỆ</h3>
+            </div>
+            <div class="header-right">
+                <p>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                <p>Độc lập - Tự do - Hạnh phúc</p>
+            </div>
+        </div>
+        
+        <div class="title">
+            <h1>THÔNG BÁO TUYỂN SINH</h1>
+            <p class="subtitle">(Hệ đại học không chính quy)</p>
+        </div>
+        
+        <div class="content">
+            <h4>1. Tài chính tín dụng</h4>
+            <h4>2. Quản lý đất đai</h4>
+            <h4>3. Công nghệ thực phẩm</h4>
+            <h4>4. Văn hóa du lịch</h4>
+            
+            <p style="margin-top: 30px;"><strong>Môn thi:</strong></p>
+            <ul>
+                <li>Họ và tên: Văn, Sử, Địa</li>
+                <li>Ngày thi: 19/12/2008</li>
+                <li>Ôn tập văn hóa: 13/11/2008</li>
+            </ul>
+            
+            <h4>5. Công tác xã hội</h4>
+            <h4>6. Báo chí</h4>
+            <ul>
+                <li>Môn thi: Văn, Sử, Địa</li>
+                <li>Ngày thi: 20/12/2008</li>
+                <li>Ôn tập văn hóa: 14/11/2008</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <div class="logo-placeholder">
+                TRƯỜNG ĐẠI HỌC<br>BẠC LIÊU<br>UNIVERSITY
+            </div>
+            <div class="building-placeholder">
+                Hình ảnh<br>Trường
+            </div>
+            <div class="building-placeholder">
+                Hình ảnh<br>Cổng trường
+            </div>
+        </div>
+    </div>
+</body>
+</html>

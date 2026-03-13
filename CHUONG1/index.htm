@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trường Đại học Bạc Liêu - Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #0a0e27 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Animated Tech Grid Background */
+        .tech-grid {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.3;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(100, 149, 237, 0.1) 49px, rgba(100, 149, 237, 0.1) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(100, 149, 237, 0.1) 49px, rgba(100, 149, 237, 0.1) 50px);
+            animation: gridMove 30s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, 50px); }
+        }
+
+        /* Radar Sweep Effect */
+        .radar-sweep {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(100, 149, 237, 0.05) 30%, rgba(100, 149, 237, 0.05) 31%, transparent 31%),
+                        radial-gradient(circle at center, transparent 50%, rgba(100, 149, 237, 0.03) 50%, rgba(100, 149, 237, 0.03) 51%, transparent 51%);
+            animation: radarSweep 15s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes radarSweep {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scanlines Effect */
+        .scanlines {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.1) 2px,
+                rgba(0, 0, 0, 0.1) 4px
+            );
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.05;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+            border-bottom: 3px solid rgba(100, 149, 237, 0.5);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(100, 149, 237, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: inline-block;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(100, 149, 237, 0.6);
+            box-shadow: 0 0 40px rgba(100, 149, 237, 0.4), inset 0 0 30px rgba(100, 149, 237, 0.2);
+            animation: logoPulse 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(100, 149, 237, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(100, 149, 237, 0.6); }
+        }
+
+        .logo-circle::before {
+            content: '✈';
+            font-size: 3.5rem;
+            color: #6495ED;
+            filter: drop-shadow(0 0 10px rgba(100, 149, 237, 0.8));
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: bold;
+            background: linear-gradient(135deg, #CBD5E1 0%, #6495ED 50%, #CBD5E1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: 0.3rem;
+            text-shadow: 0 0 40px rgba(100, 149, 237, 0.5);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(100, 149, 237, 0.4)); }
+            50% { filter: drop-shadow(0 0 40px rgba(100, 149, 237, 0.7)); }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: #94A3B8;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #CBD5E1;
+            font-style: italic;
+            letter-spacing: 0.1rem;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .mission-brief {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%);
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .mission-brief h2 {
+            font-size: 2rem;
+            color: #6495ED;
+            margin-bottom: 20px;
+            letter-spacing: 0.15rem;
+        }
+
+        .mission-brief p {
+            font-size: 1.2rem;
+            color: #CBD5E1;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Grid Navigation */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .nav-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.7) 100%);
+            border: 2px solid rgba(100, 149, 237, 0.3);
+            border-radius: 15px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 149, 237, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #6495ED;
+            box-shadow: 0 20px 60px rgba(100, 149, 237, 0.5), 0 0 80px rgba(100, 149, 237, 0.3);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            padding: 25px;
+            border-bottom: 2px solid rgba(100, 149, 237, 0.4);
+            position: relative;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgba(100, 149, 237, 0.3);
+            line-height: 1;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            filter: grayscale(100%) brightness(1.5);
+            transition: all 0.3s ease;
+        }
+
+        .nav-card:hover .card-icon {
+            filter: grayscale(0%) brightness(1.2);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #CBD5E1;
+            margin-bottom: 10px;
+            letter-spacing: 0.1rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: #6495ED;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-description {
+            font-size: 1.05rem;
+            color: #94A3B8;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #1E293B, #334155);
+            color: #CBD5E1;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(100, 149, 237, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .card-link:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .card-link:hover {
+            border-color: #6495ED;
+            box-shadow: 0 5px 25px rgba(100, 149, 237, 0.4);
+            transform: translateX(5px);
+        }
+
+        .card-link span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .arrow {
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-link:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(100, 149, 237, 0.2);
+            color: #6495ED;
+            border: 1px solid rgba(100, 149, 237, 0.4);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+            border-top: 3px solid rgba(100, 149, 237, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        footer p {
+            color: #94A3B8;
+            font-size: 1rem;
+            margin: 10px 0;
+            letter-spacing: 0.05rem;
+        }
+
+        .footer-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #6495ED;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6495ED;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #CBD5E1;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 30px 15px;
+            }
+
+            .mission-brief {
+                padding: 25px;
+            }
+
+            .card-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-card {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .nav-card:nth-child(1) { animation-delay: 0.1s; }
+        .nav-card:nth-child(2) { animation-delay: 0.2s; }
+        .nav-card:nth-child(3) { animation-delay: 0.3s; }
+        .nav-card:nth-child(4) { animation-delay: 0.4s; }
+        .nav-card:nth-child(5) { animation-delay: 0.5s; }
+        .nav-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="tech-grid"></div>
+    <div class="radar-sweep"></div>
+    <div class="scanlines"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-circle"></div>
+            </div>
+            <h1>TRƯỜNG ĐẠI HỌC BẠC LIÊU</h1>
+            <p class="subtitle">Khoa Kỹ Thuật và Công Nghệ</p>
+            <p class="tagline">Portal Navigation System - F-35 Class</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="mission-brief">
+            <h2>◈ MISSION BRIEFING ◈</h2>
+            <p>
+                Chào mừng đến với hệ thống điều hướng Portal. 
+                Chọn nhiệm vụ của bạn từ các module bên dưới để truy cập vào các hệ thống chuyên biệt.
+                Mỗi module được thiết kế với công nghệ tiên tiến, đảm bảo hiệu suất tối ưu.
+            </p>
+        </div>
+
+        <div class="nav-grid">
+            <!-- Card 1 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">01</div>
+                    <div class="card-icon">🏖️</div>
+                    <h3 class="card-title">Du lịch Bạc Liêu</h3>
+                    <p class="card-subtitle">Tourism Module</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Khám phá vẻ đẹp của Bạc Liêu qua giao diện hiện đại. 
+                        Module giới thiệu điểm đến và dịch vụ du lịch địa phương.
+                    </p>
+                    <a href="ex01-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">02</div>
+                    <div class="card-icon">💻</div>
+                    <h3 class="card-title">Chương trình CNTT</h3>
+                    <p class="card-subtitle">IT Program Database</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Thông tin chi tiết về chương trình đào tạo Công nghệ thông tin,
+                        bao gồm môn học theo từng năm và yêu cầu tốt nghiệp.
+                    </p>
+                    <a href="ex02-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">03</div>
+                    <div class="card-icon">📢</div>
+                    <h3 class="card-title">Thông báo tuyển sinh</h3>
+                    <p class="card-subtitle">Admission Bulletin</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Thông tin tuyển sinh hệ đại học không chính quy.
+                        Bao gồm các ngành đào tạo, môn thi và lịch trình chi tiết.
+                    </p>
+                    <a href="ex03-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">04</div>
+                    <div class="card-icon">📝</div>
+                    <h3 class="card-title">Đăng ký xét tuyển</h3>
+                    <p class="card-subtitle">Registration Form</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Biểu mẫu đăng ký xét tuyển trực tuyến với giao diện thân thiện.
+                        Hỗ trợ đăng ký các ngành: CNTT, Mầm non, Âm nhạc.
+                    </p>
+                    <a href="ex04-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">05</div>
+                    <div class="card-icon">⚽</div>
+                    <h3 class="card-title">Đăng ký thể thao</h3>
+                    <p class="card-subtitle">Sports Registration</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Phiếu đăng ký dự thi thể thao và đăng ký thiết bị máy tính.
+                        Module kết hợp với hệ thống quản lý trang thiết bị.
+                    </p>
+                    <a href="ex05-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="nav-card">
+                <div class="card-header">
+                    <div class="card-number">06</div>
+                    <div class="card-icon">🏆</div>
+                    <h3 class="card-title">Bảng tiền thưởng</h3>
+                    <p class="card-subtitle">Rewards Database</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-description">
+                        Hệ thống tra cứu tiền thưởng theo kết quả học tập.
+                        Bao gồm công thức tính toán và bảng tra cứu chi tiết.
+                    </p>
+                    <a href="ex06-upgraded.htm" class="card-link">
+                        <span>Khởi động module</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <div class="status-badge">● ACTIVE</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">✈</div>
+            <p>&copy; 2026 Trường Đại học Bạc Liêu</p>
+            <p>Khoa Kỹ thuật và Công nghệ</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #64748B;">
+                Powered by F-35 Navigation System | Designed with Stealth Technology
+            </p>
+            <div class="footer-links">
+                <a href="#home">Trang chủ</a>
+                <a href="#about">Giới thiệu</a>
+                <a href="#contact">Liên hệ</a>
+                <a href="#support">Hỗ trợ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const radarSweep = document.querySelector('.radar-sweep');
+            if (radarSweep) {
+                radarSweep.style.transform = `rotate(${scrolled * 0.1}deg)`;
+            }
+        });
+
+        // Add card click analytics
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const link = this.querySelector('.card-link');
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                }
+            });
+        });
+
+        // Console Easter Egg
+        console.log('%c🚀 F-35 NAVIGATION SYSTEM ONLINE', 'color: #6495ED; font-size: 20px; font-weight: bold;');
+        console.log('%cSTATUS: ALL SYSTEMS OPERATIONAL', 'color: #00ff00; font-size: 14px;');
+        console.log('%cACCESS LEVEL: AUTHORIZED', 'color: #6495ED; font-size: 14px;');
+    </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương trình Công nghệ thông tin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(100, 149, 237, 0.03) 50px, rgba(100, 149, 237, 0.03) 51px);
+            z-index: 0;
+        }
+
+        .container {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.9) 100%);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 100px rgba(100, 149, 237, 0.2);
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 2px solid rgba(100, 149, 237, 0.3);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+            color: #CBD5E1;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(100, 149, 237, 0.1);
+        }
+
+        .header h2 {
+            margin: 8px 0;
+            font-size: 1.5rem;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.15rem;
+            text-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #CBD5E1;
+            font-size: 2.5rem;
+            margin: 40px 0;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.2rem;
+            background: linear-gradient(135deg, #CBD5E1, #6495ED);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(100, 149, 237, 0.5);
+        }
+
+        .year-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.6) 100%);
+            border-left: 4px solid #6495ED;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 149, 237, 0.3);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .year-section:hover {
+            transform: translateX(10px);
+            border-left-width: 6px;
+            box-shadow: 0 8px 35px rgba(100, 149, 237, 0.4);
+        }
+
+        .year-section h3 {
+            color: #CBD5E1;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.1rem;
+        }
+
+        .year1-list {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #6495ED;
+        }
+
+        .year2-list {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2rem;
+            color: #CBD5E1;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 30px;
+        }
+
+        ul li {
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        ul li::before {
+            content: '▸';
+            position: absolute;
+            left: -25px;
+            color: #6495ED;
+            font-size: 1.2rem;
+        }
+
+        ul li:hover {
+            padding-left: 10px;
+            color: #6495ED;
+        }
+
+        .graduation-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.7) 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(100, 149, 237, 0.4);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(100, 149, 237, 0.1);
+        }
+
+        .graduation-section h4 {
+            color: #CBD5E1;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.1rem;
+        }
+
+        .graduation-list {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2rem;
+            color: #CBD5E1;
+        }
+
+        .italic-text {
+            font-style: italic;
+            color: #6495ED;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header h2 {
+                font-size: 1.2rem;
+            }
+
+            .year-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>TRƯỜNG ĐẠI HỌC BẠC LIÊU</h2>
+            <h2>KHOA KỸ THUẬT VÀ CÔNG NGHỆ</h2>
+        </div>
+        
+        <h1>CHƯƠNG TRÌNH ĐÀO TẠO CNTT</h1>
+        
+        <div class="year-section">
+            <h3>1. Năm thứ 1</h3>
+            <ul class="year1-list">
+                <li>Tin học đại cương</li>
+                <li>Tin học văn phòng</li>
+                <li>Lập trình căn bản</li>
+            </ul>
+        </div>
+        
+        <div class="year-section">
+            <h3>2. Năm thứ 2</h3>
+            <ul class="year2-list">
+                <li>Cấu trúc dữ liệu & giải thuật</li>
+                <li>Lập trình C</li>
+                <li>Lập trình quản lý</li>
+            </ul>
+        </div>
+        
+        <div class="year-section">
+            <h3>3. Năm thứ 3</h3>
+            <ul class="year2-list">
+                <li>Lập trình hướng đối tượng</li>
+                <li>Cơ sở dữ liệu</li>
+            </ul>
+        </div>
+        
+        <div class="graduation-section">
+            <h4>Tín tốt nghiệp:</h4>
+            <ul class="graduation-list">
+                <li>Thiết học</li>
+                <li>Toán rời rạc</li>
+                <li>Tin học cơ sở: <span class="italic-text">Cơ sở dữ liệu và cấu trúc dữ liệu</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
